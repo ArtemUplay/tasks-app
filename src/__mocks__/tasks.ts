@@ -7,7 +7,7 @@ export const tasksArray: ITask[] = [
     description:
       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora, aliquam.',
     priority: 'low',
-    creationDate: new Date('2025-02-22'),
+    creationDate: new Date('2025-02-22').toLocaleDateString(),
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ export const tasksArray: ITask[] = [
     description:
       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora, aliquam.',
     priority: 'medium',
-    creationDate: new Date('2025-02-23'),
+    creationDate: new Date('2025-02-23').toLocaleDateString(),
   },
   {
     id: 3,
@@ -23,7 +23,7 @@ export const tasksArray: ITask[] = [
     description:
       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora, aliquam.',
     priority: 'high',
-    creationDate: new Date('2025-02-24'),
+    creationDate: new Date('2025-02-24').toLocaleDateString(),
   },
   {
     id: 4,
@@ -31,7 +31,7 @@ export const tasksArray: ITask[] = [
     description:
       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora, aliquam.',
     priority: 'low',
-    creationDate: new Date('2025-02-25'),
+    creationDate: new Date('2025-02-25').toLocaleDateString(),
   },
   {
     id: 5,
@@ -39,6 +39,6 @@ export const tasksArray: ITask[] = [
     description:
       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora, aliquam.',
     priority: 'medium',
-    creationDate: new Date('2025-02-26'),
+    creationDate: new Date('2025-02-26').toLocaleDateString(),
   },
 ];

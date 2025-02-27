@@ -4,9 +4,9 @@ import { ITask } from 'src/types';
 
 const initialState: TasksInitialState = {
   tasks: [],
-  filteredTasks: [], // Новый массив с отфильтрованными задачами
-  priorityFilter: 'all', // Фильтр приоритетов
-  sortByDate: 'asc', // Сортировка по дате
+  filteredTasks: [],
+  priorityFilter: 'all',
+  sortByDate: 'desc',
   isOpenDeleteModal: false,
   isOpenEditModal: false,
   isOpenCreateModal: false,
@@ -54,7 +54,7 @@ export const tasksSlice = createSlice({
       state.isOpenCreateModal = false;
     },
     setTasks: (state, action: PayloadAction<ITask[]>) => {
-      state.tasks = action.payload.reverse();
+      state.tasks = action.payload;
       state.filteredTasks =
         state.priorityFilter === 'all'
           ? state.tasks
@@ -64,15 +64,41 @@ export const tasksSlice = createSlice({
     },
     deleteTask: (state, action: PayloadAction<ITask['id']>) => {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+      state.filteredTasks = state.filteredTasks.filter(
+        (task) => task.id !== action.payload
+      );
     },
     addTask: (state, action: PayloadAction<ITask>) => {
       state.tasks = [action.payload, ...state.tasks];
+
+      const parseDate = (dateString: string) => {
+        const [day, month, year] = dateString.split('.').map(Number);
+        return new Date(year, month - 1, day).getTime();
+      };
+
+      const sortedTasks = [...state.tasks].sort((a, b) => {
+        const dateA = parseDate(a.creationDate);
+        const dateB = parseDate(b.creationDate);
+
+        return state.sortByDate === 'asc' ? dateA - dateB : dateB - dateA;
+      });
+
+      state.filteredTasks =
+        state.priorityFilter === 'all'
+          ? sortedTasks
+          : sortedTasks.filter(
+              (task) => task.priority === state.priorityFilter
+            );
     },
     editTask: (state, action: PayloadAction<ITask>) => {
-      const taskIndex = state.tasks.findIndex(
+      const filteredTaskIndex = state.filteredTasks.findIndex(
         (task) => task.id === action.payload.id
       );
-      state.tasks[taskIndex] = action.payload;
+      const allTaskIndex = state.tasks.findIndex(
+        (task) => task.id === action.payload.id
+      );
+      state.filteredTasks[filteredTaskIndex] = action.payload;
+      state.tasks[allTaskIndex] = action.payload;
     },
     setPriorityFilter: (
       state,
@@ -86,13 +112,25 @@ export const tasksSlice = createSlice({
     },
     setSortByDate: (state, action: PayloadAction<'asc' | 'desc'>) => {
       state.sortByDate = action.payload;
-      state.filteredTasks.sort((a, b) => {
-        return action.payload === 'asc'
-          ? new Date(a.creationDate).getTime() -
-              new Date(b.creationDate).getTime()
-          : new Date(b.creationDate).getTime() -
-              new Date(a.creationDate).getTime();
+
+      const parseDate = (dateString: string) => {
+        const [day, month, year] = dateString.split('.').map(Number);
+        return new Date(year, month - 1, day).getTime();
+      };
+
+      const sortedTasks = [...state.tasks].sort((a, b) => {
+        const dateA = parseDate(a.creationDate);
+        const dateB = parseDate(b.creationDate);
+
+        return action.payload === 'asc' ? dateA - dateB : dateB - dateA;
       });
+
+      state.filteredTasks =
+        state.priorityFilter === 'all'
+          ? sortedTasks
+          : sortedTasks.filter(
+              (task) => task.priority === state.priorityFilter
+            );
     },
   },
 });

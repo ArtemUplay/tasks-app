@@ -14,6 +14,7 @@ const ModalDeleteComponent: FC = () => {
 
   const onSubmitDelete = useCallback(() => {
     dispatch(deleteTask(taskInModal.id));
+    dispatch(closeDeleteModal());
   }, [dispatch]);
 
   return (
@@ -24,7 +25,9 @@ const ModalDeleteComponent: FC = () => {
           {taskInModal?.title}?
         </ModalText>
         <ButtonsWrapper>
-          <Button color='#007bff'>Отмена</Button>
+          <Button color='#007bff' onClick={() => dispatch(closeDeleteModal())}>
+            Отмена
+          </Button>
           <Button color='#dc3545' onClick={onSubmitDelete}>
             Удалить
           </Button>

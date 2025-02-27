@@ -5,7 +5,7 @@ export interface ITask {
   title: string;
   description: string;
   priority: Priority;
-  creationDate: Date;
+  creationDate: string;
 }
 
 export type BuildMode = 'production' | 'development';

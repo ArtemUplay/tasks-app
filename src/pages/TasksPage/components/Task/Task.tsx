@@ -33,7 +33,7 @@ const TaskComponent: FC<TaskProps> = ({
       </TaskPriority>
       <Title>{title}</Title>
       <Description>{description}</Description>
-      <CreatedDate>{creationDate.toLocaleDateString()}</CreatedDate>
+      <CreatedDate>{creationDate}</CreatedDate>
       <Buttons>
         <Button
           color='#007bff'

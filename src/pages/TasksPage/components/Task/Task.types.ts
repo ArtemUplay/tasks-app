@@ -5,7 +5,7 @@ export interface TaskProps {
   title: string;
   description: string;
   priority: Priority;
-  creationDate: Date;
+  creationDate: string;
 }
 
 export interface StyledTaskProps {

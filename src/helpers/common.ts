@@ -9,5 +9,5 @@ export const generateRandomTask = (): ITask => ({
     | 'low'
     | 'medium'
     | 'high',
-  creationDate: new Date(),
+  creationDate: new Date().toLocaleDateString(),
 });

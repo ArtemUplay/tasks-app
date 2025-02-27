@@ -62,7 +62,7 @@ const ModalWithFormComponent: FC<ModalWithFormProps> = ({ isEdit }) => {
             fetchCreateTask({
               ...data,
               id: uuidv4(),
-              creationDate: new Date(),
+              creationDate: new Date().toLocaleDateString(),
             })
           );
         }
