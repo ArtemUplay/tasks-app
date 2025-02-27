@@ -67,12 +67,6 @@ npm run build:prod
 
 Готовые файлы появятся в папке `build/`.
 
-### 5. Запуск production-версии
-
-```bash
-npm run serve
-```
-
 ## Деплой (опционально)
 
 Проект был развёрнут на github pages (artemuplay.github.io/tasks-app/)
